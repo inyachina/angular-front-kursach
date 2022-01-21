@@ -1,0 +1,58 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.link {
+  color: dodgerblue;
+  text-decoration: underline;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+
+.form_column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form_row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &_left {
+    justify-content: start;
+  }
+}
+
+.form-control {
+  margin: 15px auto;
+}
+
+.form-control_start {
+  margin: 15px;
+}
+
+.mt-10 {
+  margin-top: 15px;
+}
+
+.mr-15 {
+  margin-right: 15px;
+}
+
+.mr-20 {
+  margin-right: 20px;
+}
+
+.mr-30 {
+  margin-right: 15px;
+}

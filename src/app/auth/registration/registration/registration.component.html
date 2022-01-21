@@ -1,0 +1,48 @@
+
+
+<form class="form_column"  [formGroup]="regFormGroup">
+  <h1 class="form-control">Регистрация</h1>
+  <mat-vertical-stepper linear>
+    <mat-step label="Логин">
+      <div class="stepper_form_column">
+        <mat-form-field class="form-control_s" appearance="outline">
+          <mat-label>Введите логин</mat-label>
+          <input matInput>
+        </mat-form-field>
+        <button color="primary" mat-icon-button matStepperNext>далее</button>
+      </div>
+    </mat-step>
+    <mat-step label="Пароль">
+      <div class="stepper_form_column">
+        <mat-form-field appearance="outline">
+          <mat-label>Введите пароль</mat-label>
+          <input matInput [type]="isHiddenPassword ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="isHiddenPassword = !isHiddenPassword"
+                  [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="isHiddenPassword">
+            <mat-icon>{{isHiddenPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <div class="form_row_left">
+          <button color="primary" mat-icon-button matStepperNext>далее</button>
+          <button [style.color]="'gray'" mat-icon-button matStepperPrevious>назад</button>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step label="Контакты">
+      <div class="stepper_form_column">
+        <mat-form-field class="form-control_s" appearance="outline">
+          <mat-label>Введите email</mat-label>
+          <input matInput>
+        </mat-form-field>
+        <mat-form-field class="form-control_s" appearance="outline">
+          <mat-label>Введите номер телефона</mat-label>
+          <input matInput>
+        </mat-form-field>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+  <mat-checkbox class="form-control_start">Вы сотрудник?</mat-checkbox>
+  <button mat-raised-button color="primary">Зарегистрироваться</button>
+  <a class="form-control link" (click)="_goToLogin()"> Уже есть аккаунт? Войдите. </a>
+</form>
