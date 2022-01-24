@@ -1,20 +1,22 @@
 import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {OrderService} from "../../../service/order.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {OrderService} from "../../../service/order.service";
+import {FormControl, Validators} from "@angular/forms";
 
 @Component({
-  selector: 'app-fate',
-  templateUrl: './fate.component.html',
-  styleUrls: ['./fate.component.scss']
+  selector: 'app-create-fate',
+  templateUrl: './create-fate.component.html',
+  styleUrls: ['./create-fate.component.scss']
 })
-export class FateComponent implements OnInit {
+export class CreateFateComponent implements OnInit {
 
   public isInProcess = false;
+  fate = new FormControl(null, Validators.required);
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { id: number },
-    public dialogRef: MatDialogRef<FateComponent>,
+    public dialogRef: MatDialogRef<CreateFateComponent>,
     private _snackbar: MatSnackBar,
     private _cdr: ChangeDetectorRef,
     private orderService: OrderService) {
@@ -29,12 +31,9 @@ export class FateComponent implements OnInit {
     });
   }
 
-  countFate() {
-    this.orderService.createHumanOrder(this.data.id).subscribe((response) => {
-      this.dialogRef.close();
-      this._snackbar.open('Заявка на расчет судьбы сформирована', 'Закрыть', {
-        duration: 3000,
-      });
-    });
+  changeHumanFate() {
+    this.orderService.changeHumanFate(this.data.id, this.fate.value).toPromise();
+    this.dialogRef.close('confirm');
   }
+
 }

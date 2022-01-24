@@ -21,5 +21,4 @@ export class UserService {
     return this._http
       .postData(`${REGISTRY_URL}/`, authorizationRequest);
   }
-
 }

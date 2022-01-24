@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 
@@ -19,7 +19,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
     ])
   ]
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit, OnDestroy {
   public isRegistration = false;
 
   constructor(
@@ -35,5 +35,7 @@ export class AuthComponent implements OnInit {
     this._router.navigateByUrl('main');
   }
 
-
+  ngOnDestroy(): void {
+    localStorage.setItem("url", null);
+  }
 }

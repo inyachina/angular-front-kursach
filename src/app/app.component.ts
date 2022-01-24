@@ -9,7 +9,7 @@ import {User} from "./service/user/userType";
 })
 export class AppComponent implements OnInit {
   // todo remove
-  static user: User = {login: "1", password: "1111", isEmployee: true};
+  static user: User = null;
 
   constructor(
     private _router: Router,
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
 
 
   private _redirect(): void {
-    const redirect = '?redirect=';
+    const redirect = '?redierect=';
 
     if (window.location.search.includes(redirect)) {
       const path = window.location.search.replace(redirect, '');

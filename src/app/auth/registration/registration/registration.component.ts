@@ -64,7 +64,7 @@ export class RegistrationComponent implements OnInit {
       phone: this.thirdFormGroup.value.phone,
       isEmployee: this.isEmployeeControl.value,
     };
-    AppComponent.user = {login: authorizationRequest.login, password: authorizationRequest.password};
+    AppComponent.user = {login: authorizationRequest.login, password: authorizationRequest.password, isEmployee: this.isEmployeeControl.value};
     this.userService.authorizate(authorizationRequest).subscribe((response) => {
     if (response.isSuccess) {
       this.redirectToMainPage();

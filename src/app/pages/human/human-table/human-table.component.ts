@@ -7,6 +7,9 @@ import {MatDialog} from '@angular/material/dialog';
 import {HumanFormComponent} from "../human-form/human-form.component";
 import {filter} from "rxjs/operators";
 import {HumanService} from "../../../service/human.service";
+import {FateComponent} from "../fate/fate.component";
+import {AppComponent} from "../../../app.component";
+import {CreateFateComponent} from "../create-fate/create-fate.component";
 
 @Component({
   selector: 'app-human-table',
@@ -45,6 +48,10 @@ export class HumanTableComponent implements OnInit, AfterViewInit {
     }
   }
 
+  public get isEmployee() {
+    return AppComponent.user.isEmployee;
+  }
+
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -62,13 +69,44 @@ export class HumanTableComponent implements OnInit, AfterViewInit {
   }
 
   public _getPeople() {
-    this.humanService.getPeople().subscribe((people) => {
-      this.dataSource = new MatTableDataSource<HumanType>(people);
-      this._cdr.markForCheck();
+    if (!this.isEmployee) {
+      this.humanService.getPeople().subscribe((people) => {
+        this.dataSource = new MatTableDataSource<HumanType>(people);
+        this._cdr.markForCheck();
+      });
+    }
+    else {
+      this.humanService.getHumanOrders().subscribe((people) => {
+        this.dataSource = new MatTableDataSource<HumanType>(people);
+        this._cdr.markForCheck();
+      });
+    }
+  }
+
+  moreInfo(id: number) {
+    this.dialog.open(FateComponent,
+      {
+        height: '40%',
+        data: {id}
+      }).afterClosed()
+      .pipe(
+        filter((res) => res === 'confirm')
+      ).subscribe(() => {
+      this._getPeople();
     });
   }
 
-  moreInfo() {
-
+  setFate(id) {
+    this.dialog.open(CreateFateComponent,
+      {
+        height: '50%',
+        width: '40%',
+        data: {id}
+      }).afterClosed()
+      .pipe(
+        filter((res) => res === 'confirm')
+      ).subscribe(() => {
+      this._getPeople();
+    });
   }
 }

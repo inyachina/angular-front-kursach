@@ -1,14 +1,35 @@
 <mat-tab-group >
-  <mat-tab label="Корзина" matBadge="7" [matBadgeHidden]="hidden" (click)="toggleBadgeVisibility()">
-   <app-basket>
-
-   </app-basket>
-  </mat-tab>
   <mat-tab label="Магазин">
   <mat-card class="m-30">
-    <button color="primary" mat-raised-button>Добавить товар</button>
-
+    <button color="primary" *ngIf="isEmployee" mat-raised-button (click)="addProduct()">Добавить товар</button>
+    <div class="grid_card" [formGroup]="form">
+      <ng-container formArrayName="products">
+        <ng-container *ngFor="let lessonForm of products.controls; let i = index">
+          <mat-card class="card">
+            <mat-card-title> {{lessonForm.value.name}}</mat-card-title>
+            <mat-card-subtitle class="mt-10">Принадлежит: {{lessonForm.value.owner}}</mat-card-subtitle>
+            <mat-card-subtitle class="mt-10">Находится в : {{lessonForm.value.timeCurrent * 100}} году</mat-card-subtitle>
+            <mat-card-content>
+              <p> Описание: {{ lessonForm.value.description }}</p>
+            </mat-card-content>
+            <mat-divider inset></mat-divider>
+            <mat-card-actions>
+              <button mat-button *ngIf="!isEmployee" (click)="addToBasket(i, lessonForm.value)">Добавить в корзину</button>
+            </mat-card-actions>
+            <mat-card-footer>
+              <mat-progress-bar mode="determinate"></mat-progress-bar>
+            </mat-card-footer>
+          </mat-card>
+        </ng-container>
+      </ng-container>
+    </div>
   </mat-card>
   </mat-tab>
+  <mat-tab *ngIf="!isEmployee" label="Корзина"  (click)="toggleBadgeVisibility()">
+    <app-basket>
+<!--      <table mat-table [dataSource]="dataSource">-->
 
+<!--      </table>-->
+    </app-basket>
+  </mat-tab>
 </mat-tab-group>

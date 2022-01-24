@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     // todo remove
-    this.redirectToMainPage();
+    // this.redirectToMainPage();
   }
 
   public _goToRegistration() {
@@ -40,11 +40,13 @@ export class LoginComponent implements OnInit {
   public authenticate() {
     AppComponent.user = {
       login: this.loginFormGroup.value.loginControl,
-      password: this.loginFormGroup.value.passwordControl
+      password: this.loginFormGroup.value.passwordControl,
+      isEmployee: false,
     };
 
     this.userService.authenticate().subscribe((response: ApiResponse<any>) => {
       if (response.isSuccess) {
+        AppComponent.user.isEmployee = response.data;
         this.redirectToMainPage();
       } else {
         this._snackbar.open("Неверный логин или пароль", "Закрыть", {duration: 3000});
@@ -53,6 +55,7 @@ export class LoginComponent implements OnInit {
   }
 
   private redirectToMainPage() {
-    this._router.navigateByUrl("main/people");
+    this._router.navigateByUrl("main/store");
+    localStorage.setItem("utl", "main/store");
   }
 }

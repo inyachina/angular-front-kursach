@@ -37,7 +37,6 @@ export class EventFormComponent implements OnInit {
 
   public getOrders() {
     this.orderService.getAllEventOrders().subscribe((response) => {
-      console.log(response);
       this._cdr.markForCheck();
       // this.dataSource = new MatTableDataSource<OrderEventType>
     });
@@ -45,7 +44,16 @@ export class EventFormComponent implements OnInit {
 
   public createEventOrder() {
     const event: EventType = this.formGroup.getRawValue();
-    this.eventService.createEventOrder(event).subscribe((response) => console.log(response));
-    this.getOrders();
+    this.eventService.createEventOrder(event).subscribe((response) => {
+      this.formGroup = this._fb.group(
+        {
+          name: [null, Validators.required],
+          startTime: [null, Validators.required],
+          endTime: null,
+          description: [null, Validators.required],
+        }
+      );
+      this.getOrders();
+    });
   }
 }

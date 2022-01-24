@@ -37,3 +37,17 @@ export interface OrderHumanType {
 }
 
 
+export interface ProductType{
+  id: number;
+  owner: number;
+  name: string;
+  description: string;
+  timeCurrent: number;
+}
+export interface ProductOrderType {
+  productId: number;
+  toUser: string;
+  fromUser: number;
+  fromTime: number;
+  toTime: number;
+}
