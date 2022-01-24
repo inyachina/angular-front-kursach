@@ -1,29 +1,20 @@
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpEvent,
   HttpHeaders,
-  HttpProgressEvent,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { HttpResponse, QueryParams } from './http.type';
+import { ApiResponse, QueryParams } from './http.type';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-const DEFAULT_HEADERS = {
-  'X-Requested-With': 'XMLHttpRequest',
-  'Content-Type': 'application/json',
-  'Cache-Control': 'no-cache',
-  Pragma: 'no-cache',
-};
-
+import {SERVER_URL} from "../../data/server_urls";
+import {AppComponent} from "../../app.component";
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService implements HttpService {
-  private SERVER_URL = '\localhost:8080';
 
   constructor(
     private _snackBar: MatSnackBar,
@@ -32,8 +23,16 @@ export class HttpService implements HttpService {
   ) {}
 
   private _createDefaultHeaders(noAuth?: boolean): HttpHeaders {
-    const headers = new HttpHeaders(DEFAULT_HEADERS);
-
+    const {login, password} = AppComponent.user;
+    const headers = new HttpHeaders({
+      'X-Requested-With': 'XMLHttpRequest',
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      Pragma: 'no-cache',
+      login: `${login}`,
+      password: `${(password)}`,
+    });
+    console.log(headers);
     return headers;
   }
 
@@ -49,9 +48,9 @@ export class HttpService implements HttpService {
   public getData<R>(
     url: string,
     params?: QueryParams,
-  ): Observable<HttpResponse<R>> {
+  ): Observable<ApiResponse<R>> {
     return this._http
-      .get<HttpResponse<R>>(this.SERVER_URL + url, {
+      .get<ApiResponse<R>>(SERVER_URL + url, {
         headers: this._createDefaultHeaders(),
         params: this._removeNullParams(params) || undefined,
       })
@@ -66,9 +65,9 @@ export class HttpService implements HttpService {
     url: string,
     body?: {},
     params?: QueryParams,
-  ): Observable<HttpResponse<R>> {
+  ): Observable<ApiResponse<R>> {
     return this._http
-      .put<HttpResponse<R>>(this.SERVER_URL + url, body, {
+      .put<ApiResponse<R>>(SERVER_URL + url, body, {
         headers: this._createDefaultHeaders(),
         params: this._removeNullParams(params) || undefined,
       })
@@ -84,69 +83,11 @@ export class HttpService implements HttpService {
     body?: {},
     params?: QueryParams,
     noAuth?: boolean,
-  ): Observable<HttpResponse<R>> {
+  ): Observable<ApiResponse<R>> {
     return this._http
-      .post<HttpResponse<R>>(this.SERVER_URL + url, body, {
+      .post<ApiResponse<R>>(SERVER_URL + url, body, {
         headers: this._createDefaultHeaders(noAuth),
         params: this._removeNullParams(params) || undefined,
-      })
-      .pipe(
-        catchError<any, any>((err: HttpErrorResponse) =>
-          this._handleError(err),
-        ),
-      );
-  }
-
-  public postSuggest<R>(url: string, body?: {}): Observable<R> {
-    const token = '1f3274c345cf877609ac1fbb203bf35eacabc941';
-    let headers = new HttpHeaders(DEFAULT_HEADERS);
-
-    headers = headers.append('Authorization', `Token ${token}`);
-
-    return this._http
-      .post<R>(url, body, {
-        headers,
-      })
-      .pipe(
-        catchError<any, any>((err: HttpErrorResponse) =>
-          this._handleError(err),
-        ),
-      );
-  }
-
-  public postBlob<R>(url: string, file: File): Observable<HttpResponse<R>> {
-    const data = new FormData();
-
-    data.append('file', file, file.name);
-
-    const headers = this._createDefaultHeaders().delete('Content-Type');
-
-    return this._http
-      .post<HttpResponse<R>>(this.SERVER_URL + url, data, {
-        headers,
-      })
-      .pipe(
-        catchError<any, any>((err: HttpErrorResponse) =>
-          this._handleError(err),
-        ),
-      );
-  }
-
-  public postBlobWithProgress<R>(
-    url: string,
-    file: File,
-  ): Observable<HttpEvent<HttpProgressEvent | HttpResponse<R>>> {
-    const data = new FormData();
-
-    data.append('file', file, file.name);
-
-    const headers = this._createDefaultHeaders().delete('Content-Type');
-
-    return this._http
-      .post(this.SERVER_URL + url, data, {
-        headers,
-        reportProgress: true,
-        observe: 'events',
       })
       .pipe(
         catchError<any, any>((err: HttpErrorResponse) =>
@@ -158,9 +99,9 @@ export class HttpService implements HttpService {
   public deleteData<R>(
     url: string,
     params?: QueryParams,
-  ): Observable<HttpResponse<R>> {
+  ): Observable<ApiResponse<R>> {
     return this._http
-      .delete<HttpResponse<R>>(this.SERVER_URL + url, {
+      .delete<ApiResponse<R>>(SERVER_URL + url, {
         headers: this._createDefaultHeaders(),
         params: this._removeNullParams(params) || undefined,
       })

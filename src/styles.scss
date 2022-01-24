@@ -2,10 +2,11 @@ html, body {
   height: 100%;
 }
 
-body {
+::ng-deep body{
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #a8c291;
 }
+
 
 .link {
   color: dodgerblue;
@@ -16,6 +17,9 @@ body {
   }
 }
 
+.full-width {
+  width: 100%;
+}
 
 .form_column {
   display: flex;
@@ -31,6 +35,9 @@ body {
   &_left {
     justify-content: start;
   }
+  &_space_between {
+    justify-content: space-between;
+  }
 }
 
 .form-control {
@@ -39,6 +46,11 @@ body {
 
 .form-control_start {
   margin: 15px;
+}
+
+
+.mt-8vh {
+  margin-top: 8vh;
 }
 
 .mt-10 {
@@ -55,4 +67,39 @@ body {
 
 .mr-30 {
   margin-right: 15px;
+}
+
+.ml-10 {
+  margin-left: 10px;
+}
+
+.ml-15 {
+  margin-left: 15px;
+}
+
+.m-10 {
+  margin: 10px;
+}
+.m-30 {
+  margin: 30px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 0;
+  background-color: #b5d2f8;
+  border-radius: 5px;
+}
+
+/* ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+  background-color: #3f51b5;
+  border-radius: 9em;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #253861;
+}
+.mat-dialog-container {
+  border-radius: 20px !important;
 }

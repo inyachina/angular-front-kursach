@@ -1,15 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatMenuTrigger} from "@angular/material/menu";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
+  constructor(private _router: Router) {
 
-  constructor() { }
+  }
 
   ngOnInit(): void {
   }
 
+  public logout() {
+    this._router.navigateByUrl('login');
+  }
+
+  public goToProduct() {
+    this._router.navigateByUrl('main/products');
+  }
+
+  public goToEvent() {
+    this._router.navigateByUrl('main/events');
+  }
 }

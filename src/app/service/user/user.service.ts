@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpService} from './http/http.service';
+import {HttpService} from '../http/http.service';
 import {Observable} from "rxjs";
+import { AuthorizationRequest } from "./userType";
+import {LOGIN_URL, REGISTRY_URL} from "../../data/server_urls";
 
 @Injectable({
   providedIn: 'root',
@@ -10,10 +12,14 @@ export class UserService {
     private _http: HttpService,
   ) {}
 
-  public getUser(): Observable<any> {
+  public authenticate(): Observable<any> {
     return this._http
-      .getData<Tariff[]>(`${TARIFFS_URL}/`)
-      .pipe(map((r) => r.data));
+      .getData(`${LOGIN_URL}/`);
+  }
+
+  public authorizate(authorizationRequest: AuthorizationRequest): Observable<any> {
+    return this._http
+      .postData(`${REGISTRY_URL}/`, authorizationRequest);
   }
 
 }

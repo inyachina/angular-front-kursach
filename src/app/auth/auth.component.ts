@@ -29,21 +29,10 @@ export class AuthComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this._redirect();
   }
 
   private _redirect(): void {
-    // this._employeesService
-    //   .isLoggedIn()
-    //   .pipe()
-    //   .subscribe(
-    //     () => this._router.navigateByUrl('dashboard'),
-    //     () => {
-    //       this.isLoading = false;
-    //
-    //       this._cdr.markForCheck();
-    //     },
-    //   );
+    this._router.navigateByUrl('main');
   }
 
 

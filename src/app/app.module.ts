@@ -16,6 +16,31 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { MatSnackBarModule} from "@angular/material/snack-bar";
+import { MainPageComponent } from './pages/main-page/main-page.component';
+import {MatMenuModule} from "@angular/material/menu";
+import { EventTableComponent } from './pages/event-page/event-table/event-table.component';
+import { EventFormComponent } from './pages/event-page/event-form/event-form.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatTabsModule} from "@angular/material/tabs";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatCardModule} from "@angular/material/card";
+import {MatDividerModule} from "@angular/material/divider";
+import { SidenavComponent } from './sidenav/sidenav.component';
+import {MatSidenavModule} from "@angular/material/sidenav";
+import { HumanFormComponent } from './pages/human/human-form/human-form.component';
+import { HumanTableComponent } from './pages/human/human-table/human-table.component';
+import { ProductsFormComponent } from './pages/product-page/products-form/products-form.component';
+import { ProductsViewComponent } from './pages/product-page/products-view/products-view.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {DateAdapter, MatNativeDateModule} from "@angular/material/core";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import { BasketComponent } from './pages/product-page/basket/basket.component';
+import {MatBadgeModule} from "@angular/material/badge";
+import { FateComponent } from './pages/human/fate/fate.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +49,16 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     LoginComponent,
     RegistrationComponent,
     HeaderComponent,
+    MainPageComponent,
+    EventTableComponent,
+    EventFormComponent,
+    SidenavComponent,
+    HumanFormComponent,
+    HumanTableComponent,
+    ProductsFormComponent,
+    ProductsViewComponent,
+    BasketComponent,
+    FateComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +74,21 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatButtonModule,
     MatStepperModule,
     MatCheckboxModule,
+    MatSnackBarModule,
+    MatMenuModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatTabsModule,
+    MatGridListModule,
+    MatCardModule,
+    MatDividerModule,
+    MatSidenavModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTooltipModule,
+    MatBadgeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

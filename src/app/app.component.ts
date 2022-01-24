@@ -1,18 +1,26 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {User} from "./service/user/userType";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
+  // todo remove
+  static user: User = {login: "1", password: "1111", isEmployee: true};
+
   constructor(
     private _router: Router,
-  ) {}
+  ) {
+  }
 
   public ngOnInit(): void {
     this._redirect();
+    if (AppComponent.user?.login) {
+      this._navigateToMain();
+    }
     this._navigateToAuth();
   }
 
@@ -33,5 +41,9 @@ export class AppComponent implements OnInit{
     if (this._router.url.indexOf('/login/') === -1) {
       this._router.navigateByUrl('login');
     }
+  }
+
+  private _navigateToMain() {
+    this._router.navigateByUrl('main');
   }
 }

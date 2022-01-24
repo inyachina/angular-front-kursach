@@ -1,4 +1,4 @@
-export interface HttpResponse<R> {
+export interface ApiResponse<R> {
   isSuccess: boolean;
   type: string;
   data: R;
